@@ -23,16 +23,16 @@
       apt:
         name: telegraf
         update_cache: yes
-      register: telegraf.installed
+      register: ti
       when: ansible_distribution_release == "bionic"
     - name: Download Config File If Telegraf Got Installed
       get_url:
         url: https://raw.githubusercontent.com/dison4linux/ansible-awx/master/files/telegraf.conf
         dest: /etc/telegraf/telegraf.conf
         mode: 0644
-      when: telegraf.installed.changed
+      when: ti.changed
     - name: Restart Telegraf if necessary
       service:
         name: telegraf
         state: restarted
-      when: telegraf.installed.changed
+      when: ti.changed
