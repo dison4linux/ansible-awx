@@ -1,0 +1,22 @@
+---
+# a comment
+- name: Remove the 'collectd' package.
+  hosts: all:!localhost
+  gather_facts: yes
+
+  tasks:
+    - name: apt install collectd
+      apt:
+        name: collectd
+        state: absent
+      when: ansible_distribution_file_variety == "Debian"
+    - name: yum install collectd
+      yum:
+        name: collectd
+        state: absent
+      when: ansible_distribution_file_variety == "RedHat"
+    - name: zypper install collectd
+      zypper:
+        name: collectd
+        state: absent
+      when: ansible_distribution_file_variety == "SUSE"
