@@ -14,6 +14,11 @@
         state: present
         line: 'deb https://repos.influxdata.com/ubuntu bionic stable'
       when: ansible_distribution_release == "bionic"
+    - name: Add Apt Key
+      apt_key:
+        url: https://repos.influxdata.com/influxdb.key
+        state: present
+      when: ansible_distribution_release == "bionic"
     - name: Install telegraf
       apt:
         name: telegraf
