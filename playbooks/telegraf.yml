@@ -1,0 +1,22 @@
+---
+# a comment
+- name: Configure Server For Telegraf
+  hosts: all:!localhost
+
+  tasks:
+    - name: Create InfluxData Repo (Bionic)
+      lineinfile:
+        path: /etc/apt/sources.list.d/influxdata.list
+        create: yes
+        owner: root
+        group: root
+        mode: 0644
+        state: present
+        line: 'deb https://repos.influxdata.com/ubuntu bionic stable'
+      when: ansible_distribution_release == "bionic"
+    - name: Install telegraf
+      apt:
+        name: collectd
+        update_cache: yes
+      when: ansible_distribution_release == "bionic"
+
