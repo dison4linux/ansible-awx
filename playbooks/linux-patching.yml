@@ -1,9 +1,6 @@
 ---
 # a comment
 - name: Upgrade All Packages
-  hosts: all:!localhost
-  gather_facts: yes
-  become: yes
 
   tasks:
     - name: apt dist-upgrade
