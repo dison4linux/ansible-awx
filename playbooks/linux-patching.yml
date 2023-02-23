@@ -16,9 +16,9 @@
         state: latest
         update_cache: yes
       when: ansible_distribution_file_variety == "RedHat"
-    - name: zypper update
-      zypper:
-        name: '*'
-        state: latest
-        update_cache: yes
-      when: ansible_distribution_file_variety == "SUSE"
+#    - name: zypper update
+#      zypper:
+#        name: '*'
+#        state: latest
+#        update_cache: yes
+#      when: ansible_distribution_file_variety == "SUSE"
