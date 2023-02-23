@@ -13,13 +13,14 @@
         name: '*'
         state: latest
         update_cache: yes
-      when: ansible_distribution_file_variety == "RedHat" and ansible_facts['lsb']['major_release'] | int <= 7
+      when: ansible_distribution_file_variety == "RedHat" and ansible_facts['distribution_major_version'] == "7"
     - name: dnf update
       ansible.builtin.dnf:
         name: "*"
         state: latest
         update_cache: yes
-      when: ansible_distribution_file_variety == "RedHat" and ansible_facts['lsb']['major_release'] | int >= 8
+      when: (ansible_distribution_file_variety == "RedHat" and ansible_facts['distribution_major_version'] == "8") or
+            (ansible_distribution_file_variety == "RedHat" and ansible_facts['distribution_major_version'] == "9")
 #    - name: zypper update
 #      zypper:
 #        name: '*'
