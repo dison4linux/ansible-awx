@@ -1,6 +1,7 @@
 ---
 # a comment
 - name: Upgrade All Packages
+  hosts: all:!localhost
 
   tasks:
     - name: apt dist-upgrade
