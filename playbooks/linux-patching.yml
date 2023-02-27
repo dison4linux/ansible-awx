@@ -8,12 +8,20 @@
       apt:
         upgrade: dist
       when: ansible_distribution_file_variety == "Debian"
+      register: updates
+      notify:
+      - reboot system
+      
     - name: yum update
       yum:
         name: '*'
         state: latest
         update_cache: yes
       when: ansible_distribution_file_variety == "RedHat" and ansible_facts['distribution_major_version'] == "7"
+      register: updates
+      notify:
+      - reboot system
+      
     - name: dnf update
       ansible.builtin.dnf:
         name: "*"
@@ -21,9 +29,20 @@
         update_cache: yes
       when: (ansible_distribution_file_variety == "RedHat" and ansible_facts['distribution_major_version'] == "8") or
             (ansible_distribution_file_variety == "RedHat" and ansible_facts['distribution_major_version'] == "9")
+      register: updates
+      notify:
+      - reboot system
+      
     - name: zypper update
       community.general.zypper:
         name: '*'
         state: latest
         update_cache: yes
       when: ansible_distribution_file_variety == "SUSE"
+      register: updates
+      notify:
+      - reboot system
+
+  handlers:
+    - name: reboot system
+      reboot:
