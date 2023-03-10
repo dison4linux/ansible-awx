@@ -33,15 +33,15 @@
       notify:
       - reboot system
       
-    - name: zypper update
-      community.general.zypper:
-        name: '*'
-        state: latest
-        update_cache: yes
-      when: ansible_distribution_file_variety == "SUSE"
-      register: updates
-      notify:
-      - reboot system
+#    - name: zypper update
+#      community.general.zypper:
+#        name: '*'
+#        state: latest
+#        update_cache: yes
+#      when: ansible_distribution_file_variety == "SUSE"
+#      register: updates
+#      notify:
+#     - reboot system
 
   handlers:
     - name: reboot system
