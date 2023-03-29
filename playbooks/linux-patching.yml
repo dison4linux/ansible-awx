@@ -5,15 +5,16 @@
 
   tasks:
     - name: apt dist-upgrade
-      apt:
+      ansible.builtin.apt:
         upgrade: dist
+        update_cache: yes
       when: ansible_distribution_file_variety == "Debian"
       register: updates
       notify:
       - reboot system
       
     - name: yum update
-      yum:
+      ansible.builtin.yum:
         name: '*'
         state: latest
         update_cache: yes
