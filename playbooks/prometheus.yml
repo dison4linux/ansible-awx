@@ -30,7 +30,7 @@
         mode: '0755'
       when: ansible_architecture == "x86_64"
     - name: setup systemd unit
-      ansible.builtin.blockinfile:
+      ansible.builtin.get_url:
         url: https://raw.githubusercontent.com/dison4linux/ansible-awx/master/files/node_exporter.service
         dest: node_exporter.service
         mode: '0644'
