@@ -47,7 +47,7 @@
       ansible.builtin.lineinfile:
         path: /etc/promtail/config-promtail.yml
         search_string: 'host'
-        line: 'host: {{ ansible_hostname }}'
+        line: '        host: {{ ansible_hostname }}'
     - name: setup systemd unit
       ansible.builtin.get_url:
         url: https://raw.githubusercontent.com/dison4linux/ansible-awx/master/files/promtail.service
