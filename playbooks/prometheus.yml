@@ -13,11 +13,13 @@
       ansible.builtin.get_url:
         url: https://github.com/prometheus/node_exporter/releases/download/v1.5.0/node_exporter-1.5.0.linux-amd64.tar.gz
         dest: /tmp
+      when: ansible_architecture == "x86_64"
     - name: unarchive file
       ansible.builtin.unarchive:
         src: /tmp/node_exporter-1.5.0.linux-amd64.tar.gz
         dest: /tmp/
         remote_src: yes
+      when: ansible_architecture == "x86_64"
     - name: copy file into place
       ansible.builtin.copy:
         src: /tmp/node_exporter-1.5.0.linux-amd64/node_exporter
@@ -26,4 +28,5 @@
         owner: prometheus
         group: prometheus
         mode: '0755'
+      when: ansible_architecture == "x86_64"
         
