@@ -32,7 +32,7 @@
     - name: setup systemd unit
       ansible.builtin.get_url:
         url: https://raw.githubusercontent.com/dison4linux/ansible-awx/master/files/node_exporter.service
-        dest: node_exporter.service
+        dest: /etc/systemd/system/node_exporter.service
         mode: '0644'
         owner: root
         group: root
