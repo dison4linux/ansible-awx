@@ -47,8 +47,8 @@
           Type=simple
           ExecStart=/usr/local/bin/node_exporter
 
-         [Install]
-         WantedBy=multi-user.target
+          [Install]
+          WantedBy=multi-user.target
    - name: enable systemd unit
      ansible.builtin.systemd:
        state: restarted
