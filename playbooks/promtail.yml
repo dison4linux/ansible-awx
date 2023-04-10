@@ -23,7 +23,7 @@
     - name: copy file into place
       ansible.builtin.copy:
         src: /tmp/promtail-linux-amd64
-        dest: /usr/local/bin/promtail-linux-amd64
+        dest: /usr/local/bin/promtail
         remote_src: yes
         owner: prometheus
         group: prometheus
@@ -39,7 +39,7 @@
     - name: download initial config file
       ansible.builtin.get_url:
         url: https://raw.githubusercontent.com/dison4linux/ansible-awx/master/files/config-promtail.yml.j2   
-        est: /etc/promtail/config-promtail.yml
+        dest: /etc/promtail/config-promtail.yml
         owner: prometheus
         group: prometheus
         mode: '0755'
