@@ -1,0 +1,11 @@
+---
+# a comment
+- name: Setup host for Prometheus monitoring
+  hosts: all:!localhost
+
+  tasks:
+    - name: add prometheus user
+      ansible.builtin.user:
+        name: johnd
+        shell: /bin/false
+        uid: 3434
