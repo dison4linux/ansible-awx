@@ -1,0 +1,63 @@
+---
+# a comment
+- name: Setup host for Promtail monitoring
+  hosts: all:!localhost
+
+  tasks:
+    - name: add promtail user
+      ansible.builtin.user:
+        name: promtail
+        shell: /bin/sh
+        uid: 997
+    - name: download promtail binary archive
+      ansible.builtin.get_url:
+        url: https://github.com/grafana/loki/releases/download/v2.8.0/promtail-linux-amd64.zip
+        dest: /tmp
+      when: ansible_architecture == "x86_64"
+    - name: unarchive file
+      ansible.builtin.unarchive:
+        src: /tmp/promtail-linux-amd64.zip
+        dest: /tmp/
+        remote_src: yes
+      when: ansible_architecture == "x86_64"
+    - name: copy file into place
+      ansible.builtin.copy:
+        src: /tmp/promtail-linux-amd64
+        dest: /usr/local/bin/promtail-linux-amd64
+        remote_src: yes
+        owner: promtail
+        group: promtail
+        mode: '0755'
+      when: ansible_architecture == "x86_64"
+    - name: create config file directory
+      ansible.builtin.file:
+        path: /etc/promtail
+        state: directory
+        owner: promtail
+        group: promtail
+        mode: '0755'
+    - name: download initial config file
+      ansible.builtin.get_url:
+        url: https://raw.githubusercontent.com/dison4linux/ansible-awx/master/files/config-promtail.yml.j2   
+        est: /etc/promtail/config-promtail.yml
+        owner: promtail
+        group: promtail
+        mode: '0755'
+    - name: adjust config file
+      ansible.builtin.lineinfile:
+        path: /etc/promtail/config-promtail.yml
+        search_string: 'host'
+        line: 'host: {{ ansible_hostname }}'
+    - name: setup systemd unit
+      ansible.builtin.get_url:
+        url: https://raw.githubusercontent.com/dison4linux/ansible-awx/master/files/promtail.service
+        dest: /etc/systemd/system/promtail.service
+        mode: '0644'
+        owner: root
+        group: root
+    - name: enable systemd unit
+      ansible.builtin.systemd:
+        state: restarted
+        enabled: true
+        daemon_reload: true
+        name: node_exporter
