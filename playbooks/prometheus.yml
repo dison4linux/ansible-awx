@@ -36,9 +36,9 @@
         mode: '0644'
         owner: root
         group: root
-   - name: enable systemd unit
-     ansible.builtin.systemd:
-       state: restarted
-       enabled: true
-       daemon_reload: true
-       name: node_exporter
+    - name: enable systemd unit
+      ansible.builtin.systemd:
+        state: restarted
+        enabled: true
+        daemon_reload: true
+        name: node_exporter
