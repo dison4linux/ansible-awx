@@ -13,7 +13,7 @@ scrape_configs:
     journal:
       max_age: 12h
       labels:
-        host: {{ ansible_hostname }}
+        host
         job: systemd-journal
     relabel_configs:
       - source_labels: ['__journal__systemd_unit']
