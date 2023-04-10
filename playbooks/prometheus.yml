@@ -6,6 +6,6 @@
   tasks:
     - name: add prometheus user
       ansible.builtin.user:
-        name: johnd
+        name: prometheus
         shell: /bin/false
         uid: 3434
